@@ -3,6 +3,9 @@ import base64
 from pathlib import Path
 
 
+# ----------------------------
+# Utils
+# ----------------------------
 def read_bytes(filename: str) -> bytes | None:
     p = Path(__file__).parent / filename
     return p.read_bytes() if p.exists() else None
@@ -16,88 +19,121 @@ def set_background(image_path: str = "sfondo.png"):
     st.markdown(
         f"""
         <style>
-          [data-testid="stAppViewContainer"] {{
+        [data-testid="stAppViewContainer"] {{
             background: url("data:image/png;base64,{b64}") center/cover no-repeat fixed;
-          }}
-          [data-testid="stHeader"] {{
-            background: rgba(255,255,255,0);
-          }}
-          #MainMenu {{visibility: hidden;}}
-          footer {{visibility: hidden;}}
+        }}
+        [data-testid="stHeader"] {{ background: rgba(255,255,255,0); }}
+        #MainMenu {{ visibility: hidden; }}
+        footer {{ visibility: hidden; }}
 
-          /* “Card” semplice per testo */
-          .card {{
-            max-width: 980px;
+        /* Contenitore centrale */
+        .center-box {{
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 36px 40px;
-            background: rgba(255,255,255,0.94);
-            border: 1px solid rgba(210,210,210,0.85);
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-          }}
+            text-align: center;
+        }}
+
+        /* Testi grandi */
+        .big-text {{
+            font-size: 20px;
+            line-height: 1.7;
+        }}
+
+        .very-big {{
+            font-size: 22px;
+            font-weight: 700;
+        }}
         </style>
         """,
         unsafe_allow_html=True
     )
 
 
-st.set_page_config(page_title="Progetto Formativo – Nuove Competenze 2025", layout="wide")
+# ----------------------------
+# App
+# ----------------------------
+st.set_page_config(
+    page_title="Progetto Formativo – Nuove Competenze 2025",
+    layout="wide"
+)
+
 set_background("sfondo.png")
 
-
 # ----------------------------
-# LOGO IN ALTO (centrato + ridimensionato SICURO)
+# LOGO IN ALTO (centrato)
 # ----------------------------
-top_logo = read_bytes("LogoEuroirte.png")
-if top_logo:
+logo_top = read_bytes("LogoEuroirte.png")
+if logo_top:
     c1, c2, c3 = st.columns([1, 2, 1])
     with c2:
-        st.image(top_logo, width=420)  # <-- cambia qui se lo vuoi più piccolo (es. 320)
-else:
-    st.warning("File mancante: LogoEuroirte.png")
+        st.image(logo_top, width=380)
 
-st.write("")  # piccolo spazio
-
+st.write("")
 
 # ----------------------------
-# TESTO (sempre visibile, no HTML)
+# CONTENUTO CENTRALE
 # ----------------------------
-st.markdown('<div class="card">', unsafe_allow_html=True)
-
-st.title('PROGETTO FORMATIVO “NUOVE COMPETENZE 2025”')
+st.markdown('<div class="center-box">', unsafe_allow_html=True)
 
 st.markdown(
-    """
-**ID-FNC3 – S-08472**  
-**AVVISO MLPS DEL 5/12/2024**  
-**FONDONUOVE COMPETENZE 3 – COMPETENZE PER L’INNOVAZIONE**
-"""
+    "<h1>PROGETTO FORMATIVO “NUOVE COMPETENZE 2025”</h1>",
+    unsafe_allow_html=True
 )
 
 st.markdown(
     """
-Il progetto formativo è realizzato nell’ambito del **Fondo Nuove Competenze – Competenze per le Innovazioni**,
-operazione di importanza strategica del **Programma Nazionale Giovani, Donne e Lavoro 2021–2027**,
+<div class="very-big">
+ID-FNC3 – S-08472<br>
+AVVISO MLPS DEL 5/12/2024<br>
+FONDONUOVE COMPETENZE 3 – COMPETENZE PER L’INNOVAZIONE
+</div>
+""",
+    unsafe_allow_html=True
+)
+
+st.write("")
+
+st.markdown(
+    """
+<div class="big-text">
+Il progetto formativo è realizzato nell’ambito del <b>Fondo Nuove Competenze – Competenze per le Innovazioni</b>,
+operazione di importanza strategica del
+<b>Programma Nazionale Giovani, Donne e Lavoro 2021–2027</b>,
 cofinanziato dall’Unione Europea – Fondo Sociale Europeo Plus (FSE+).
-"""
+</div>
+""",
+    unsafe_allow_html=True
 )
 
-st.markdown("**Periodo di realizzazione previsto** – DICEMBRE 2025 – FEBBRAIO 2026")
-st.markdown("**Ambiti formativi** (es. competenze digitali, sicurezza, innovazione )")
+st.write("")
+
+st.markdown(
+    """
+<div class="big-text">
+<b>Periodo di realizzazione previsto</b> – DICEMBRE 2025 – FEBBRAIO 2026
+</div>
+""",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+<div class="big-text">
+<b>Ambiti formativi</b> (es. competenze digitali, sicurezza, innovazione)
+</div>
+""",
+    unsafe_allow_html=True
+)
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-
-st.write("")  # spazio
-
+st.write("")
 
 # ----------------------------
-# LOGHI A FINE PAGINA (centrati + ridimensionati SICURO)
+# LOGHI FINALI (centrati)
 # ----------------------------
-footer_logos = read_bytes("loghi.png")
-if footer_logos:
-    c1, c2, c3 = st.columns([1, 3, 1])
+logos = read_bytes("loghi.png")
+if logos:
+    c1, c2, c3 = st.columns([1, 2, 1])
     with c2:
-        st.image(footer_logos, width=560)  # <-- cambia qui (es. 520 / 480) per più piccolo
-else:
-    st.warning("File mancante: loghi.png")
+        st.image(logos, width=600)
