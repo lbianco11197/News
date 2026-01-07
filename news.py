@@ -111,6 +111,23 @@ def inject_css():
       footer {visibility: hidden;}
       #MainMenu {visibility: hidden;}
     </style>
+
+    .jj-footer {
+    max-width: 980px;
+    margin: 0 auto 26px auto;
+    padding: 18px 12px;
+    background: rgba(255,255,255,0.90);
+    border: 1px solid rgba(210,210,210,0.8);
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+}
+
+.jj-logos {
+    max-width: 520px;
+    width: 100%;
+    height: auto;
+}
     """
     st.markdown(css, unsafe_allow_html=True)
 
@@ -159,8 +176,16 @@ st.markdown(
 )
 
 # Loghi a fine pagina
-st.markdown('<div class="jj-footer"><img src="data:image/png;base64,' +
-            base64.b64encode(logo_bytes).decode() +
-            '" class="jj-logos"></div>',
-            unsafe_allow_html=True)
+logo_bytes = _read_bytes("loghi.png")
+
+if logo_bytes:
+    st.markdown(
+        '<div class="jj-footer">'
+        '<img src="data:image/png;base64,' +
+        base64.b64encode(logo_bytes).decode() +
+        '" class="jj-logos"></div>',
+        unsafe_allow_html=True
+    )
+else:
+    st.warning("Immagine loghi non trovata: salva 'loghi.png' nella stessa cartella del file .py")
 
