@@ -75,7 +75,7 @@ def set_background_and_global_css(bg_name: str = "sfondo.png"):
         .bottom-logos {{
             display: block;
             margin: 18px auto 0 auto;
-            width: 560px;
+            width: 620px;
             max-width: 90vw;
             height: auto;
         }}
