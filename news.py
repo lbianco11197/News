@@ -159,10 +159,8 @@ st.markdown(
 )
 
 # Loghi a fine pagina
-st.markdown('<div class="jj-footer">', unsafe_allow_html=True)
-logo_bytes = _read_bytes("loghi.png")
-if logo_bytes:
-    st.image(logo_bytes, width=520)
-else:
-    st.warning("Immagine loghi non trovata: salva il file come 'loghi.png' nella stessa cartella di questo .py.")
-st.markdown("</div>", unsafe_allow_html=True)
+st.markdown('<div class="jj-footer"><img src="data:image/png;base64,' +
+            base64.b64encode(logo_bytes).decode() +
+            '" class="jj-logos"></div>',
+            unsafe_allow_html=True)
+
